@@ -34,3 +34,18 @@ Thumbs.db
 # Local research outputs
 data/interim/
 outputs/
+
+# Local configuration and secrets
+*.pem
+*.key
+
+# Coverage reports
+.coverage
+htmlcov/
+coverage.xml
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Temporary research exports
+*.bak
