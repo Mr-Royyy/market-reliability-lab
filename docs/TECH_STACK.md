@@ -22,3 +22,6 @@ and tested it against scikit-learn.
 
 For more complex ML methods, we will generally use established
 libraries rather than unnecessarily reimplementing algorithms.
+
+### Formatting
+Ruff: Used for Python linting, import organization, and automatic formatting. It enforces consistent code style and catches certain programming mistakes before code is committed. Unlike pytest, Ruff does not verify the mathematical correctness of our algorithms.

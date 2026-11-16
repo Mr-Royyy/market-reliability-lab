@@ -1,0 +1,23 @@
+# Python packaging artifacts
+*.egg-info/
+
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+
+# Test and lint caches
+.pytest_cache/
+.ruff_cache/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Research data
+data/raw/
+data/processed/
+*.parquet
+*.duckdb
