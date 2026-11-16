@@ -49,3 +49,5 @@ coverage.xml
 
 # Temporary research exports
 *.bak
+
+data/backups/

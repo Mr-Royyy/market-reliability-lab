@@ -4,6 +4,7 @@ Read-only Kalshi API requests. Produces a local CSV with one row per
 contract, checkpoint, and UTC observation hour.
 """
 
+import argparse
 from pathlib import Path
 
 import httpx
@@ -30,7 +31,10 @@ SERIES = (
     "KXRAINCHIM",
 )
 
-MONTH_SUFFIX = "26SEP"
+MONTH_OUTPUTS = {
+    "26SEP": "september_calendar_audit.csv",
+    "26OCT": "october_calendar_audit.csv",
+}
 HOURS_UTC = (0, 12, 18)
 LOOKBACK_HOURS = 24
 
@@ -172,12 +176,26 @@ def audit_observation(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Audit fixed rainfall calendar checkpoints."
+    )
+    parser.add_argument(
+        "--month",
+        choices=MONTH_OUTPUTS,
+        required=True,
+        help="Rainfall event month to audit.",
+    )
+    args = parser.parse_args()
+
+    month_suffix = args.month
+    output = Path("data/processed") / MONTH_OUTPUTS[month_suffix]
+
     rows = []
     now = pd.Timestamp.now(tz="UTC")
 
     with create_kalshi_http_client() as client:
         for series in SERIES:
-            event = f"{series}-{MONTH_SUFFIX}"
+            event = f"{series}-{month_suffix}"
             markets = [
                 market
                 for market in fetch_series_markets(client, series)
@@ -220,8 +238,8 @@ def main() -> None:
             & df["spread"].le(max_spread)
         )
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(OUTPUT, index=False)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output, index=False)
 
     print("\nELIGIBILITY STATUS")
     print(df["eligibility_status"].value_counts().to_string())
@@ -264,7 +282,7 @@ def main() -> None:
             f"with at least one moderate-quality quote"
         )
 
-    print(f"\nSaved: {OUTPUT}")
+    print(f"\nSaved: {output}")
 
 
 if __name__ == "__main__":

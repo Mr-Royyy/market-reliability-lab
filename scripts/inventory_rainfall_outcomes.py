@@ -21,7 +21,7 @@ SERIES = (
 )
 
 MONTHS = ("26JUN", "26JUL", "26AUG", "26SEP", "26OCT")
-OUTPUT = Path("data/processed/rainfall_outcome_inventory_extended.csv")
+OUTPUT = Path("data/processed/rainfall_outcome_inventory.csv")
 
 
 def fetch_markets(client, series):
