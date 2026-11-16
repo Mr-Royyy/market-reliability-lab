@@ -20,3 +20,17 @@ data/raw/
 data/processed/
 *.parquet
 *.duckdb
+
+# Local editor settings
+.vscode/
+.idea/
+
+# Temporary files and logs
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Local research outputs
+data/interim/
+outputs/

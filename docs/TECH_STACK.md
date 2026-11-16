@@ -65,3 +65,16 @@ Initial design:
 - Verify that features existed before the forecast timestamp.
 - Preserve raw values and missing-data information.
 
+### Point-in-Time Snapshot Design
+
+The project constructs forecast observations from historical Kalshi candlesticks using fixed horizons before market close.
+
+The current exploratory horizons are 15, 30, and 45 minutes. Each snapshot uses the most recent usable bid–ask midpoint within a five-minute freshness window, subject to the existing quote-validity and maximum-spread filters.
+
+A five-event NYC hourly temperature audit examined 47 contracts per horizon. Snapshot coverage was 91.5% at 15 minutes, 89.4% at 30 minutes, and 87.2% at 45 minutes.
+
+These results demonstrate preliminary data availability, not predictive accuracy or population-wide coverage.
+
+Contracts within the same Kalshi event share an underlying hourly temperature measurement. Consecutive hourly events within the same city and date may also be dependent. The planned evaluation will therefore use grouped, chronological splits rather than random contract-level splits.
+
+**Current limitations:** Candlestick bid–ask midpoint availability does not guarantee executable prices, quote freshness within the candle, or absence of information leakage. Spread and freshness thresholds remain provisional. The dataset must preserve missing snapshots, observation timestamps, forecast horizons, and grouping identifiers.
