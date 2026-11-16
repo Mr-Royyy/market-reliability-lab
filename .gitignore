@@ -1,13 +1,12 @@
-# Python packaging artifacts
-*.egg-info/
-
 # Virtual environment
 .venv/
 
-# Python cache
+# Python-generated files
 __pycache__/
+*.py[cod]
+*.egg-info/
 
-# Test and lint caches
+# Development caches
 .pytest_cache/
 .ruff_cache/
 
@@ -16,7 +15,7 @@ __pycache__/
 .env.*
 !.env.example
 
-# Research data
+# Generated research data
 data/raw/
 data/processed/
 *.parquet
